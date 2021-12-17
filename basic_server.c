@@ -4,7 +4,7 @@
 
 extern int child_id;
 
-int sighandler(int signum) {
+static void sighandler(int signum) {
 	if (signum == SIGINT) {
 		remove(WKP);
 		exit(0);
@@ -22,6 +22,8 @@ int strtoupper(char *string) {
 
 int main() {
 	int from_client, to_client = 0;
+	
+	signal(SIGINT,sighandler);
 	
 	while (1) {
 		if (from_client != 0) {
